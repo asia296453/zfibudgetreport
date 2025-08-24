@@ -1,0 +1,15 @@
+/* Enter your custom styles here */
+.formNoTitle h6{
+    display: none;
+    }
+    .formNoTitle h5{
+        display: none;
+        }
+.zto{
+    text-align: right;
+    margin-left: 5rem;
+}
+
+.zbutton{
+    margin-left: 1rem;
+}

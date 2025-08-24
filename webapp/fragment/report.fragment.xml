@@ -1,0 +1,349 @@
+<core:FragmentDefinition  xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+	 xmlns:f="sap.ui.layout.form"
+xmlns:l="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:commons="sap.suite.ui.commons"
+    xmlns:custData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+   
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:st="sap.ui.comp.smarttable"
+   
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:sv="sap.ui.comp.smartvariants">
+	 
+	 <VBox class="sapUiNoContentPadding sapUiNoMargin">
+       	<f:SimpleForm 
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title=""
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+			
+
+				<Label text="Budget Request No" />
+				<Input  value="{LocalModel>/results/BreqnoFrom}"  />
+				<Text text="To"  class="zto">
+				<layoutData>
+						<l:GridData span="XL1 L1 M1 S1" />
+					</layoutData>
+					</Text>
+                <Input  value="{LocalModel>/results/BreqnoTo}" >
+					<layoutData>
+						<l:GridData span="XL1 L2 M2 S1" />
+					</layoutData>
+				</Input>
+				<Button icon="sap-icon://arrow-right" press="onpressBreqno" type="Emphasized" width="20%">
+				<layoutData>
+						<l:GridData span="XL1 L2 M2 S1" />
+					</layoutData>
+					</Button>
+
+
+				<Label text="Process"  />
+				<Input  value="{LocalModel>/results/ProcessFrom}"  />
+				<Text text="To"  class="zto" >
+				<layoutData>
+						<l:GridData span="XL1 L1 M1 S1" />
+					</layoutData>
+					</Text>
+                <Input  value="{LocalModel>/results/ProcessTo}" >
+					<layoutData>
+						<l:GridData span="XL1 L2 M2 S1" />
+					</layoutData>
+				</Input>
+				<Button icon="sap-icon://arrow-right" press="onpressProcess" type="Emphasized" width="20%" 
+				>
+				<layoutData>
+						<l:GridData span="XL1 L2 M2 S1" />
+					</layoutData>
+					</Button>
+
+				<Label text="Created by" />
+				<Input  value="{LocalModel>/results/Crtby}" width="40%"/>
+				
+
+				<Label text="{i18n>CreationDate}" />
+				<DateRangeSelection width="40%"
+			value= "{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'dd/MM/yyyy',
+                            'UTC': true
+				},
+				'parts': [
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': 'LocalModel>/results/DateFrom'
+					},
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': 'LocalModel>/results/DateTo'
+					}
+				]
+			}"
+			change="handleChange"/>
+
+			<Label text="Status" />
+			<ComboBox items="{Status>/results}" width="40%" selectedKey="{LocalModel>/results/Status}">
+                                 <core:Item key="{Status>Status}" text="{Status>Text}"/>
+                                </ComboBox>
+			
+			<Label text="" />
+			<HBox >
+			<Button text="Go" type="Emphasized" press="refreshTable"/>
+			<Button text="Clear" type="Emphasized" press="onClear" class="zbutton"/>
+			</HBox>
+			
+			</f:content>
+		</f:SimpleForm>
+    </VBox>
+	<!-- initiallyVisibleFields="Pernr,Perna,Kostl,Ktext,Abtei,Breqno,Crtdat,Exptype,Saknr,Stext,Amt,Curr,Comments,Status,Belnr" -->
+
+<st:SmartTable id="smartTable" header="" entitySet="BRHDRITMSet" 
+tableType="ResponsiveTable" dataReceived="onDataReceived"
+smartFilterId="smartFilterBar" smartVariant="smartVariant" persistencyKey="zsmartTable.table"
+				showRowCount="true" 
+				beforeRebindTable="onBeforeRebindTable"  placeToolbarInTable="true"
+				
+				ignoreFromPersonalisation=""
+				requestAtLeastFields=""
+				useExportToExcel="false"
+				class="sapUiResponsiveContentPadding" enableAutoColumnWidth="true">
+				<st:customToolbar>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://excel-attachment" press="onExport" />
+						</Toolbar>
+				</st:customToolbar>
+				<Table growing="true" growingThreshold="20" growingScrollToLoad="true" rememberSelections="false"
+					 >
+					<columns>
+					<!-- <Column >
+							<Text text="" />
+						</Column>-->
+					<Column> 
+	<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Breqno", "columnIndex":	1	, "leadingProperty": "Breqno", "sortProperty": "Breqno", "filterProperty": "Breqno" }' />
+		</customData>
+		<Text text="Budget Request No" />		
+		</Column>
+		
+		<Column>
+			<customData>
+				<core:CustomData key="p13nData" value='\{"columnKey": "Britem", "columnIndex":	2	, "leadingProperty": "Britem", "sortProperty": "Britem", "filterProperty": "Britem" }' />
+				</customData>
+				<Text text="Document Line" />
+				</Column>
+				
+		<Column>
+			<customData>
+				<core:CustomData key="p13nData" value='\{"columnKey": "Btext", "columnIndex":	3	, "leadingProperty": "Btext", "sortProperty": "Btext", "filterProperty": "Btext" }' />
+				</customData>
+				<Text text="Budget Request Desc." />
+				</Column>
+				
+		<Column>
+			<customData>
+				<core:CustomData key="p13nData" value='\{"columnKey": "Process", "columnIndex":	4	, "leadingProperty": "Process", "sortProperty": "Process", "filterProperty": "Process" }' />
+				</customData>
+				<Text text="Budgeting Process" />
+				</Column>
+				
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Ptext", "columnIndex":	5	, "leadingProperty": "Ptext", "sortProperty": "Ptext", "filterProperty": "Ptext" }' />
+		</customData>
+		<Text text="Text" />
+		</Column>
+
+		<Column>
+		<customData><core:CustomData key="p13nData" value='\{"columnKey": "Docdate", "columnIndex":	6	, "leadingProperty": "Docdate", "sortProperty": "Docdate", "filterProperty": "Docdate" , "type":"date"}' />
+		</customData>
+		<Text text="Document Date" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Docyear", "columnIndex":	7	, "leadingProperty": "Docyear", "sortProperty": "Docyear", "filterProperty": "Docyear" }' />
+		</customData>
+		<Text text="Document Year" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Kostl", "columnIndex":	8	, "leadingProperty": "Kostl", "sortProperty": "Kostl", "filterProperty": "Kostl" }' />
+		</customData>
+		<Text text="Cost Center" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Ktext", "columnIndex":	9	, "leadingProperty": "Ktext", "sortProperty": "Ktext", "filterProperty": "Ktext" }' />
+		</customData>
+		<Text text="Description" />
+		</Column>
+		<Column>
+
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Dept", "columnIndex":	10	, "leadingProperty": "Dept", "sortProperty": "Dept", "filterProperty": "Dept" }' />
+		</customData>
+		<Text text="Tracking Number" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Dtext", "columnIndex":	11	, "leadingProperty": "Dtext", "sortProperty": "Dtext", "filterProperty": "Dtext" }' />
+		</customData>
+		<Text text="Description" />
+		</Column>
+
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Divis", "columnIndex":	12	, "leadingProperty": "Divis", "sortProperty": "Divis", "filterProperty": "Divis" }' />
+		</customData>
+		<Text text="Character Field with Length 10" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Ditxt", "columnIndex":	13	, "leadingProperty": "Ditxt", "sortProperty": "Ditxt", "filterProperty": "Ditxt" }' />
+		</customData>
+		<Text text="Char" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Status", "columnIndex":	14	, "leadingProperty": "Status", "sortProperty": "Status", "filterProperty": "Status" }' />
+		</customData>
+		<Text text="Budget Request Stat" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Crtby", "columnIndex":	15	, "leadingProperty": "Crtby", "sortProperty": "Crtby", "filterProperty": "Crtby" }' />
+		</customData>
+		<Text text="User Name" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Crtdat", "columnIndex":	16	, "leadingProperty": "Crtdat", "sortProperty": "Crtdat", "filterProperty": "Crtdat"  , "type":"date"}'/>
+		</customData>
+		<Text text="Current Date" />
+		</Column>
+
+		
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "FmArea", "columnIndex":	18	, "leadingProperty": "FmArea", "sortProperty": "FmArea", "filterProperty": "FmArea" }' />
+		</customData>
+		<Text text="FM Area" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Docnr", "columnIndex":	19	, "leadingProperty": "Docnr", "sortProperty": "Docnr", "filterProperty": "Docnr" }' />
+		</customData>
+		<Text text="Document Number" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Message", "columnIndex":	20	, "leadingProperty": "Message", "sortProperty": "Message", "filterProperty": "Message" }' />
+		</customData>
+		<Text text="Message Text" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Fundsctr", "columnIndex":	21	, "leadingProperty": "Fundsctr", "sortProperty": "Fundsctr", "filterProperty": "Fundsctr" }' />
+		</customData>
+		<Text text="Funds Center" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Fctxt", "columnIndex":	22	, "leadingProperty": "Fctxt", "sortProperty": "Fctxt", "filterProperty": "Fctxt" }' />
+		</customData>
+		<Text text="Name" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Cmmtitem", "columnIndex":	23	, "leadingProperty": "Cmmtitem", "sortProperty": "Cmmtitem", "filterProperty": "Cmmtitem" }' />
+		</customData>
+		<Text text="Commitment Item" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Cmtxt", "columnIndex":	24	, "leadingProperty": "Cmtxt", "sortProperty": "Cmtxt", "filterProperty": "Cmtxt" }' />
+		</customData>
+		<Text text="Name" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Amt", "columnIndex":	25	, "leadingProperty": "Amt", "sortProperty": "Amt", "filterProperty": "Amt" }' />
+		</customData>
+		<Text text="Amount TC" />
+		</Column>
+
+		<Column>
+		<customData>
+		<core:CustomData key="p13nData" value='\{"columnKey": "Curr", "columnIndex":	26	, "leadingProperty": "Curr", "sortProperty": "Curr", "filterProperty": "Curr" }' />
+		</customData>
+		<Text text="Currency" />
+		</Column>
+
+					</columns>
+					<items>
+						<ColumnListItem>
+							<!-- <Button  text="Repost" press="onRepost" enabled="{parts:[{path:'Status'},{path:'Belnr'}], formatter:'.updateButton'}"/>					 -->
+							<Link text="{path: 'Breqno'}" press="handleLinkPress" />
+							<Text text="{path: 'Britem'}" /> 
+							<Text text="{path: 'Btext'}" /> 
+							<Text text="{path: 'Process'}" /> 
+							<Text text="{path: 'Ptext'}" /> 
+							<Text text="{path: 'Docdate', type: 'sap.ui.model.type.DateTime', formatOptions: {UTC: true, pattern: 'dd.MM.yyyy'}}" />
+							<Text text="{path: 'Docyear'}" /> 
+							<Text text="{path: 'Kostl'}" /> 
+							<Text text="{path: 'Ktext'}" /> 
+							<Text text="{path: 'Dept'}" /> 
+							<Text text="{path: 'Dtext'}" /> 
+							<Text text="{path: 'Divis'}" /> 
+							<Text text="{path: 'Ditxt'}" /> 
+							<Text text="{path: 'Status', type: 'sap.ui.model.type.String', formatter: '.formatstatusapp' }"/>
+							<Text text="{path: 'Crtby'}" /> 
+							<Text text="{path: 'Crtdat', type: 'sap.ui.model.type.DateTime', formatOptions: {UTC: true, pattern: 'dd.MM.yyyy'}}" />
+							
+							<Text text="{path: 'FmArea'}" /> 
+							<Text text="{path: 'Docnr'}" /> 
+							<Text text="{path: 'Message'}" /> 
+							<Text text="{path: 'Fundsctr'}" /> 
+							<Text text="{path: 'Fctxt'}" /> 
+							<Text text="{path: 'Cmmtitem'}" /> 
+							<Text text="{path: 'Cmtxt'}" /> 
+							<Text text="{path: 'Amt'}" /> 
+							<Text text="{path: 'Curr'}" /> 
+
+						</ColumnListItem>
+					</items>
+				</Table>
+			</st:SmartTable>
+            
+</core:FragmentDefinition>

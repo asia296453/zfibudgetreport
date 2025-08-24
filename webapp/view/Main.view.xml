@@ -1,0 +1,9 @@
+<mvc:View controllerName="zfibudgetreport.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="page">
+    <content>
+    <core:Fragment fragmentName="zfibudgetreport.fragment.report" type="XML"/>
+    </content>
+    </Page>
+</mvc:View>

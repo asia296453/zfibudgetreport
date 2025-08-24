@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>selectempid}" contentWidth="50%" >
+	
+		 <f:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="12"
+            labelSpanL="12"
+            labelSpanM="12"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="3"
+            columnsL="3"
+            columnsM="3"
+            singleContainerFullSize="false"
+            class="formNoTitle"
+        >
+            <f:content>
+                <core:Title text="test" />
+				<Label ></Label>
+				<ComboBox  selectedKey="{LocalModel>/results/PernrSel}">
+                                    <core:Item key="Equal" text="Equal"/>
+                                    <core:Item key="Between" text="Between"/>
+                                </ComboBox>
+
+			    <core:Title text="test" />
+				<Label ></Label>
+				<Input value="{LocalModel>/results/PernrFrom}"></Input>
+
+				<core:Title text="test" />
+		      	<Label visible="{= ${LocalModel>/results/PernrSel} ==='Between'? true : false}"></Label>
+				<Input value="{LocalModel>/results/PernrTo}" visible="{= ${LocalModel>/results/PernrSel} ==='Between'? true : false}"></Input>
+            </f:content>		
+			
+        </f:SimpleForm>
+		<beginButton></beginButton>
+		<endButton>
+			<Button  text="OK" press="onPernOk" type="Emphasized"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

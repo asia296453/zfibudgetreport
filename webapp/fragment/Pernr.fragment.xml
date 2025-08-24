@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns:semantic="sap.m.semantic" xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Dialog 
+      title ="Add Multiple Selection" contentWidth="30%"  draggable="true" resizable="false">
+           <Table  items="{onpressPernr>/results}"  >
+           <headerToolbar>
+                        <OverflowToolbar style="Clear">
+                            <ToolbarSpacer />
+                            <Button 
+                                icon="sap-icon://add"
+                                type="Transparent"
+                                press="onAddrowPernr"
+                            />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                    <Column width="10%" ><Text text=""/></Column>
+                     <Column>      <Text text="{i18n>EmployeeID}"/>
+                        </Column>
+                    </columns>
+                    <items>                   
+                        <ColumnListItem>
+                        <Button icon="sap-icon://delete" press="deleteRowPernr" type="Reject" />   
+                          <Input value="{onpressPernr>Value}"/>                                
+                        </ColumnListItem>
+                    </items>
+                </Table>
+        <beginButton></beginButton>
+		<endButton>
+			<Button  text="OK" press="onclosePernr" type="Emphasized"/>
+		</endButton>
+    </Dialog>
+</core:FragmentDefinition>
